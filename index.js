@@ -46,7 +46,7 @@ const punchIn = async () => {
 
   await page.goto(widgetUrl,{waitUntil:'networkidle2'});
   await page.click('.ManSwipe');
-  await page.waitFor(10000);
+  await page.waitForTimeout(10000);
   await browser.close();
 };
 
