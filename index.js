@@ -32,7 +32,6 @@ const punchIn = async () => {
   await page.type('[name="Password"]', password);
   await page.click('[name="btnsubmit"]');
   await page.waitForNavigation();
-  await page.screenshot({ path: 'loggedin.png' });
 
   const context = browser.defaultBrowserContext();
   await context.overridePermissions(domain, ['geolocation']);
@@ -48,19 +47,17 @@ const punchIn = async () => {
   await page.goto(widgetUrl,{waitUntil:'networkidle2'});
   await page.click('.ManSwipe');
   await page.waitFor(10000);
-	await page.screenshot({ path: 'clockin.png' });
-
   await browser.close();
-} ;
+};
 
 //punch in at 8.30
-cron.schedule('30 8 * * *', () =>{
+cron.schedule('30 8 * * mon,tue,wed,thu,fri', () =>{
   console.log('clock in at 8.30AM');
   punchIn();
 });
 
 //punch out at 5.30
-cron.schedule('30 17 * * *', () =>{
+cron.schedule('30 17 * * mon,tue,wed,thu,fri', () =>{
   console.log('clock out at 5.30AM');
   punchIn();
 });
